@@ -6,4 +6,4 @@ You can add and delete text fields dynamically as part of filling out the form.
 
 Here's an example screen shot:
 
-<img src="README.png">
+<img width="300px" src="README.png">
