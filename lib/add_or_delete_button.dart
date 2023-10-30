@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 
-class TextFieldButton extends StatelessWidget {
-  const TextFieldButton(
-      {super.key,
-      required this.index,
-      required this.friendsList,
-      required this.onTap,
-      required this.isLast});
+/// Builds either an Add or Remove button depending on value of isAdd.
+class AddOrDeleteButton extends StatelessWidget {
+  const AddOrDeleteButton(
+      {super.key, required this.onTap, required this.isAdd});
 
-  final int index;
-  final List<String> friendsList;
   final VoidCallback onTap;
-  final bool isLast;
+  final bool isAdd;
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +18,10 @@ class TextFieldButton extends StatelessWidget {
         height: 30,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: isLast ? Colors.green : Colors.red,
+          color: isAdd ? Colors.green : Colors.red,
         ),
         child: Icon(
-          isLast ? Icons.add : Icons.remove,
+          isAdd ? Icons.add : Icons.remove,
           color: Colors.white,
         ),
       ),
