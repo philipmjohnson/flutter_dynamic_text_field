@@ -3,16 +3,16 @@ import 'package:flutter_dynamic_text_field/text_field_button.dart';
 
 import 'dynamic_text_field.dart';
 
-class DynamicTextFieldsApp extends StatefulWidget {
-  const DynamicTextFieldsApp({super.key});
+class App extends StatefulWidget {
+  const App({super.key});
 
   @override
-  State createState() => DynamicTextFieldsAppState();
+  State createState() => AppState();
 }
 
-class DynamicTextFieldsAppState extends State<DynamicTextFieldsApp> {
+class AppState extends State<App> {
   final _formKey = GlobalKey<FormState>();
-  final List<String> friendsList = [''];
+  final friendsList = [''];
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +37,11 @@ class DynamicTextFieldsAppState extends State<DynamicTextFieldsApp> {
                     ),
                     const SizedBox(width: 20),
                     TextFieldButton(
-                        index,
-                        friendsList,
-                        () => setState(
-                              () => isLast
+                        index: index,
+                        friendsList: friendsList,
+                        isLast: index == friendsList.length - 1,
+                        onTap: () => setState(
+                              () => (index == friendsList.length - 1)
                                   ? friendsList.add('')
                                   : friendsList.removeAt(index),
                             )),
@@ -57,7 +58,7 @@ class DynamicTextFieldsAppState extends State<DynamicTextFieldsApp> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
-                    print(friendsList);
+                    print('on Submit: friendsList is: $friendsList');
                   }
                 },
                 child: const Text('Submit'),
