@@ -26,15 +26,17 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
                 } else {
                   fieldValuesList.removeAt(index);
                 }
-                field.didChange(fieldValuesList);
               },
             );
+            field.didChange(fieldValuesList);
           }
 
-          void onChanged(int index, String fieldEntryValue) {
+          void onChanged(int index, String? fieldEntryValue) {
             print(
                 'onChanged: index is: $index, fieldEntryValue is: $fieldEntryValue');
-            fieldValuesList[index] = fieldEntryValue;
+            if (fieldEntryValue != null) {
+              fieldValuesList[index] = fieldEntryValue;
+            }
             // field.didChange(fieldValuesList);
           }
 
@@ -45,7 +47,7 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
               children: [
                 Expanded(
                   child: DynamicTextFieldEntry(
-                    key: UniqueKey(),
+                    key: ValueKey(index),
                     initialValue: fieldValuesList[index],
                     onChanged: (value) => onChanged(index, value),
                   ),

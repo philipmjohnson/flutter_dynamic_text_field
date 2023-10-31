@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 // This is a TextFormField with the following customizations:
 // * It has an explicitly declared and managed TextFieldController
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 // * It also has an InputDecorator and a validator.
 class DynamicTextFieldEntry extends StatefulWidget {
   final String? initialValue;
-  final void Function(String) onChanged;
+  final void Function(String?) onChanged;
 
   const DynamicTextFieldEntry({
     super.key,
@@ -36,7 +37,8 @@ class DynamicTextFieldEntryState extends State<DynamicTextFieldEntry> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return FormBuilderTextField(
+      name: UniqueKey().toString(),
       controller: _controller,
       onChanged: widget.onChanged,
       decoration: const InputDecoration(hintText: "Enter the field value2."),

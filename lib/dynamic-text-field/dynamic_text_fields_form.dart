@@ -45,7 +45,7 @@ class _DynamicTextFieldsFormState extends State<DynamicTextFieldsForm> {
                     child: DynamicTextFieldEntry(
                       key: UniqueKey(),
                       initialValue: fieldValuesList[index],
-                      onChanged: (v) => fieldValuesList[index] = v,
+                      onChanged: (v) => fieldValuesList[index] = v ?? '',
                     ),
                   ),
                   const SizedBox(width: 20),
