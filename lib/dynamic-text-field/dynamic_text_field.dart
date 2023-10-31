@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'dynamic_text_field_entry.dart';
 import 'dynamic_text_field_entry_button.dart';
 
 class DynamicTextField extends StatefulWidget {
-  const DynamicTextField({super.key});
+  const DynamicTextField({super.key, required this.name});
+  final String name;
 
   @override
   State<DynamicTextField> createState() => _DynamicTextFieldState();
@@ -16,7 +16,7 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
   @override
   Widget build(BuildContext context) {
     return FormBuilderField<List<String>>(
-        name: 'DynamicTextField',
+        name: widget.name,
         builder: (FormFieldState field) {
           void onTap(int index) {
             setState(
@@ -46,8 +46,9 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
             itemBuilder: (_, index) => Row(
               children: [
                 Expanded(
-                  child: DynamicTextFieldEntry(
-                    key: ValueKey(index),
+                  child: FormBuilderTextField(
+                    name: UniqueKey().toString(),
+                    // key: ValueKey(index),
                     initialValue: fieldValuesList[index],
                     onChanged: (value) => onChanged(index, value),
                   ),
