@@ -7,8 +7,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Example')),
-        // body: const DynamicTextFieldsForm(),
+        appBar: AppBar(title: const Text('Dynamic Text Field Example')),
         body: const RecipeForm());
   }
 }
