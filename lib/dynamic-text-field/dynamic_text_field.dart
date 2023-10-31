@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 import 'dynamic_text_field_button.dart';
 
@@ -42,6 +43,9 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
                     name: UniqueKey().toString(),
                     initialValue: fieldValuesList[index],
                     onChanged: (value) => onChanged(index, value),
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(),
+                    ]),
                   ),
                 ),
                 const SizedBox(width: 20),
