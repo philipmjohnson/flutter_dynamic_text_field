@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'add_or_delete_button.dart';
-import 'dynamic_text_field.dart';
+import '../submit_button.dart';
+import 'dynamic_text_field_entry.dart';
+import 'dynamic_text_field_entry_button.dart';
 
 // A form consisting of a dynamically modifiable ListView of TextFields.
 // The state is a list of strings representing the values of the current TextFields.
@@ -23,6 +24,13 @@ class _DynamicTextFieldsFormState extends State<DynamicTextFieldsForm> {
 
   @override
   Widget build(BuildContext context) {
+    void onPressed() {
+      if (_formKey.currentState?.validate() ?? false) {
+        // ignore: avoid_print
+        print('on Submit: fieldValuesList is: $fieldValuesList');
+      }
+    }
+
     return Form(
       key: _formKey,
       child: Column(
@@ -34,14 +42,14 @@ class _DynamicTextFieldsFormState extends State<DynamicTextFieldsForm> {
               itemBuilder: (_, index) => Row(
                 children: [
                   Expanded(
-                    child: DynamicTextField(
+                    child: DynamicTextFieldEntry(
                       key: UniqueKey(),
                       initialValue: fieldValuesList[index],
                       onChanged: (v) => fieldValuesList[index] = v,
                     ),
                   ),
                   const SizedBox(width: 20),
-                  AddOrDeleteButton(
+                  DynamicTextFieldEntryButton(
                       isAdd: (index == fieldValuesList.length - 1),
                       onTap: () => setState(
                             () => (index == fieldValuesList.length - 1)
@@ -54,18 +62,7 @@ class _DynamicTextFieldsFormState extends State<DynamicTextFieldsForm> {
             ),
           ),
           // submit button
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState?.validate() ?? false) {
-                  // ignore: avoid_print
-                  print('on Submit: fieldValuesList is: $fieldValuesList');
-                }
-              },
-              child: const Text('Submit'),
-            ),
-          )
+          SubmitButton(onPressed: onPressed)
         ],
       ),
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 /// Builds either an Add or Remove button depending on value of isAdd.
-class AddOrDeleteButton extends StatelessWidget {
-  const AddOrDeleteButton(
+class DynamicTextFieldEntryButton extends StatelessWidget {
+  const DynamicTextFieldEntryButton(
       {super.key, required this.onTap, required this.isAdd});
 
   final VoidCallback onTap;

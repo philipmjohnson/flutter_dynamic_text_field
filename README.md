@@ -9,3 +9,8 @@ The example includes a validator to check that all fields have values upon press
 Here's an example screenshot showing the display after two items have been entered and an attempt is made to submit the form with an empty text field.
 
 <img width="300px" src="README.png">
+
+* Recipe list
+* Single child scroll view
+* custom validator
+* move submit out of directory.

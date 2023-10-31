@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'dynamic_text_fields_form.dart';
+import 'package:flutter_dynamic_text_field/recipe_form.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -8,8 +7,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Example')),
-      body: const DynamicTextFieldsForm(),
-    );
+        appBar: AppBar(title: const Text('Example')),
+        // body: const DynamicTextFieldsForm(),
+        body: const RecipeForm());
   }
 }
