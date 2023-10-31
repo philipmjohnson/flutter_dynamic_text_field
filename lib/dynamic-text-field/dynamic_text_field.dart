@@ -32,11 +32,7 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
           }
 
           void onChanged(int index, String? fieldEntryValue) {
-            print(
-                'onChanged: index is: $index, fieldEntryValue is: $fieldEntryValue');
-            if (fieldEntryValue != null) {
-              fieldValuesList[index] = fieldEntryValue;
-            }
+            fieldValuesList[index] = fieldEntryValue!;
             field.didChange(fieldValuesList);
           }
 
