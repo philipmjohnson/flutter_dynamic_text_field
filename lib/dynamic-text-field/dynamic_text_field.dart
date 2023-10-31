@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'dynamic_text_field_entry_button.dart';
+import 'dynamic_text_field_button.dart';
 
 class DynamicTextField extends StatefulWidget {
   const DynamicTextField({super.key, required this.name});
@@ -20,13 +20,9 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
         builder: (FormFieldState field) {
           void onTap(int index) {
             setState(
-              () {
-                if (index == fieldValuesList.length - 1) {
-                  fieldValuesList.add('');
-                } else {
-                  fieldValuesList.removeAt(index);
-                }
-              },
+              () => (index == fieldValuesList.length - 1)
+                  ? fieldValuesList.add('')
+                  : fieldValuesList.removeAt(index),
             );
             field.didChange(fieldValuesList);
           }
@@ -44,13 +40,12 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
                 Expanded(
                   child: FormBuilderTextField(
                     name: UniqueKey().toString(),
-                    // key: ValueKey(index),
                     initialValue: fieldValuesList[index],
                     onChanged: (value) => onChanged(index, value),
                   ),
                 ),
                 const SizedBox(width: 20),
-                DynamicTextFieldEntryButton(
+                DynamicTextFieldButton(
                     isAdd: (index == fieldValuesList.length - 1),
                     onTap: () => onTap(index)),
               ],
