@@ -6,7 +6,7 @@ import 'dynamic-text-field/dynamic_text_field.dart';
 
 class RecipeForm extends StatelessWidget {
   const RecipeForm({super.key});
-  final String formName = 'Recipe List';
+  final String fieldName = 'Recipe Items';
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +14,19 @@ class RecipeForm extends StatelessWidget {
 
     void onPressed() {
       if (formKey.currentState!.saveAndValidate()) {
-        print(formKey.currentState!.value[formName]);
+        print(formKey.currentState!.value[fieldName]);
       }
     }
 
     return FormBuilder(
       key: formKey,
-      child: Column(children: [
-        Expanded(child: DynamicTextField(name: formName)),
-        SubmitButton(onPressed: onPressed)
-      ]),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          Expanded(child: DynamicTextField(name: fieldName)),
+          SubmitButton(onPressed: onPressed)
+        ]),
+      ),
     );
   }
 }

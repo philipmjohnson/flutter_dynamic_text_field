@@ -33,29 +33,36 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
             field.didChange(fieldValuesList);
           }
 
-          return ListView.separated(
-            itemCount: fieldValuesList.length,
-            padding: const EdgeInsets.all(20),
-            itemBuilder: (_, index) => Row(
-              children: [
-                Expanded(
-                  child: FormBuilderTextField(
-                    name: UniqueKey().toString(),
-                    initialValue: fieldValuesList[index],
-                    onChanged: (value) => onChanged(index, value),
-                    validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.required(),
-                    ]),
-                  ),
+          return InputDecorator(
+              decoration: InputDecoration(
+                labelText: widget.name,
+                border: const OutlineInputBorder(),
+                contentPadding: const EdgeInsets.all(10.0),
+                errorText: field.errorText,
+              ),
+              child: ListView.separated(
+                itemCount: fieldValuesList.length,
+                padding: const EdgeInsets.all(20),
+                itemBuilder: (_, index) => Row(
+                  children: [
+                    Expanded(
+                      child: FormBuilderTextField(
+                        name: UniqueKey().toString(),
+                        initialValue: fieldValuesList[index],
+                        onChanged: (value) => onChanged(index, value),
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ]),
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    DynamicTextFieldButton(
+                        isAdd: (index == fieldValuesList.length - 1),
+                        onTap: () => onTap(index)),
+                  ],
                 ),
-                const SizedBox(width: 20),
-                DynamicTextFieldButton(
-                    isAdd: (index == fieldValuesList.length - 1),
-                    onTap: () => onTap(index)),
-              ],
-            ),
-            separatorBuilder: (_, __) => const SizedBox(height: 20),
-          );
+                separatorBuilder: (_, __) => const SizedBox(height: 20),
+              ));
         });
   }
 }
