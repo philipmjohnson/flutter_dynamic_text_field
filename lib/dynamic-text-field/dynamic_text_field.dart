@@ -37,7 +37,7 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
             if (fieldEntryValue != null) {
               fieldValuesList[index] = fieldEntryValue;
             }
-            // field.didChange(fieldValuesList);
+            field.didChange(fieldValuesList);
           }
 
           return ListView.separated(

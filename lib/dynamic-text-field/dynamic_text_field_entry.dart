@@ -39,7 +39,7 @@ class DynamicTextFieldEntryState extends State<DynamicTextFieldEntry> {
   Widget build(BuildContext context) {
     return FormBuilderTextField(
       name: UniqueKey().toString(),
-      controller: _controller,
+      // controller: _controller,
       onChanged: widget.onChanged,
       decoration: const InputDecoration(hintText: "Enter the field value2."),
       validator: (v) {
