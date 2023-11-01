@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'dynamic_text_field.dart';
 import 'text_field_button.dart';
@@ -15,7 +16,7 @@ class _RecipeFormState extends State<RecipeForm> {
   final friendsList = [''];
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return FormBuilder(
       key: _formKey,
       child: Column(
         children: [
@@ -56,6 +57,8 @@ class _RecipeFormState extends State<RecipeForm> {
               onPressed: () {
                 if (_formKey.currentState?.validate() ?? false) {
                   print('on Submit: friendsList is: $friendsList');
+                } else {
+                  print('on Submit: form is invalid');
                 }
               },
               child: const Text('Submit'),
