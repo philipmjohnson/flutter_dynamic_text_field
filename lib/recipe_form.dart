@@ -14,7 +14,7 @@ class RecipeForm extends StatelessWidget {
 
     void onPressed() {
       if (formKey.currentState!.saveAndValidate()) {
-        print(formKey.currentState!.value[fieldName]);
+        print('on Submit: ${formKey.currentState!.value[fieldName]}');
       }
     }
 
