@@ -14,7 +14,7 @@ class DynamicTextField2 extends StatefulWidget {
 }
 
 class _DynamicTextField2State extends State<DynamicTextField2> {
-  final fieldValuesList = [''];
+  List<String> fieldValuesList = [''];
   @override
   Widget build(BuildContext context) {
     return FormBuilderField<List<String>>(
@@ -34,6 +34,7 @@ class _DynamicTextField2State extends State<DynamicTextField2> {
             field.didChange(fieldValuesList);
           }
 
+          print(fieldValuesList);
           return InputDecorator(
               decoration: InputDecoration(
                 labelText: widget.name,
@@ -41,26 +42,31 @@ class _DynamicTextField2State extends State<DynamicTextField2> {
                 contentPadding: const EdgeInsets.all(10.0),
                 errorText: field.errorText,
               ),
-              child: Column(children: [
-                ...fieldValuesList.mapIndexed((index, value) => Row(
-                      children: [
-                        Expanded(
-                          child: FormBuilderTextField(
-                            name: UniqueKey().toString(),
-                            initialValue: fieldValuesList[index],
-                            onChanged: (value) => onChanged(index, value),
-                            validator: FormBuilderValidators.compose([
-                              FormBuilderValidators.required(),
-                            ]),
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        DynamicTextFieldButton(
-                            isAdd: (index == fieldValuesList.length - 1),
-                            onTap: () => onTap(index)),
-                      ],
-                    ))
-              ]));
+              child: SingleChildScrollView(
+                  child: Column(
+                      children: fieldValuesList
+                          .mapIndexed((index, value) => Row(
+                                children: [
+                                  Text('<$index:$value>'),
+                                  Expanded(
+                                    child: FormBuilderTextField(
+                                      name: UniqueKey().toString(),
+                                      initialValue: fieldValuesList[index],
+                                      onChanged: (value) =>
+                                          onChanged(index, value),
+                                      validator: FormBuilderValidators.compose([
+                                        FormBuilderValidators.required(),
+                                      ]),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20),
+                                  DynamicTextFieldButton(
+                                      isAdd:
+                                          (index == fieldValuesList.length - 1),
+                                      onTap: () => onTap(index)),
+                                ],
+                              ))
+                          .toList())));
         });
   }
 }
