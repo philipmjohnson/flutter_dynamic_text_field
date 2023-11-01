@@ -30,11 +30,13 @@ class _SingleTextFieldState extends State<SingleTextField> {
     super.dispose();
   }
 
+  void updateText(String text) => _controller.text = text;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _controller,
-      onChanged: widget.onChanged,
+      onChanged: (value) => {widget.onChanged(value), updateText(value)},
       decoration: const InputDecoration(hintText: "Enter your friend's name"),
       validator: (v) {
         if (v == null || v.trim().isEmpty) return 'Please enter something';

@@ -47,10 +47,10 @@ class _DynamicTextField2State extends State<DynamicTextField2> {
                       children: fieldValuesList
                           .mapIndexed((index, value) => Row(
                                 children: [
-                                  Text('<$index:$value>'),
+                                  Text('<FOO $index:$value>'),
                                   Expanded(
                                     child: SingleTextField(
-                                      initialValue: fieldValuesList[index],
+                                      initialValue: value,
                                       onChanged: (value) =>
                                           onChanged(index, value),
                                     ),
