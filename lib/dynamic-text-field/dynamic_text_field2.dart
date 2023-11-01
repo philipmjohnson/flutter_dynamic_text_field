@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 
+import 'SingleTextField.dart';
 import 'dynamic_text_field_button.dart';
 
 class DynamicTextField2 extends StatefulWidget {
@@ -49,14 +49,10 @@ class _DynamicTextField2State extends State<DynamicTextField2> {
                                 children: [
                                   Text('<$index:$value>'),
                                   Expanded(
-                                    child: FormBuilderTextField(
-                                      name: UniqueKey().toString(),
+                                    child: SingleTextField(
                                       initialValue: fieldValuesList[index],
                                       onChanged: (value) =>
                                           onChanged(index, value),
-                                      validator: FormBuilderValidators.compose([
-                                        FormBuilderValidators.required(),
-                                      ]),
                                     ),
                                   ),
                                   const SizedBox(width: 20),
