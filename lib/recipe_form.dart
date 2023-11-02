@@ -29,7 +29,8 @@ class _RecipeFormState extends State<RecipeForm> {
       key: _formKey,
       child: Column(
         children: [
-          Expanded(child: MultiFields(formKey: _formKey)),
+          Expanded(
+              child: MultiFields(formKey: _formKey, didChange: (foo) => {})),
           SubmitButton(onPressed: onPressed),
         ],
       ),
