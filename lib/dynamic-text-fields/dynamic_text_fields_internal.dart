@@ -4,18 +4,19 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'dynamic_text_field.dart';
 import 'dynamic_text_field_button.dart';
 
-class MultiFields extends StatefulWidget {
-  const MultiFields(
+class DynamicTextFieldsInternal extends StatefulWidget {
+  const DynamicTextFieldsInternal(
       {super.key, required this.formKey, required this.didChange});
 
   final GlobalKey<FormBuilderState> formKey;
   final Function(List<String>) didChange;
 
   @override
-  State<MultiFields> createState() => _MultiFieldsState();
+  State<DynamicTextFieldsInternal> createState() =>
+      _DynamicTextFieldsInternalState();
 }
 
-class _MultiFieldsState extends State<MultiFields> {
+class _DynamicTextFieldsInternalState extends State<DynamicTextFieldsInternal> {
   final fieldValues = [''];
 
   void addFieldValueEntry() {

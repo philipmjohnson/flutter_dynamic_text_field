@@ -1,36 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'multi_fields.dart';
+import 'dynamic-text-fields/dynamic_text_fields.dart';
 import 'submit_button.dart';
 
 class RecipeForm extends StatefulWidget {
-  const RecipeForm({super.key});
+  RecipeForm({super.key});
+
+  final String name = 'Recipe Ingredients';
+  final _formKey = GlobalKey<FormBuilderState>();
 
   @override
   State<RecipeForm> createState() => _RecipeFormState();
 }
 
 class _RecipeFormState extends State<RecipeForm> {
-  final _formKey = GlobalKey<FormBuilderState>();
-  final friendsList = [''];
   @override
   Widget build(BuildContext context) {
     void onPressed() {
-      if (_formKey.currentState?.saveAndValidate() ?? false) {
-        print('on Submit: friendsList is: $friendsList');
-        print(_formKey.currentState?.value.toString());
+      if (widget._formKey.currentState?.saveAndValidate() ?? false) {
+        print(
+            'on Submit: ${widget._formKey.currentState?.fields[widget.name]?.value}');
       } else {
         print('on Submit: form is invalid');
       }
     }
 
     return FormBuilder(
-      key: _formKey,
+      key: widget._formKey,
       child: Column(
         children: [
           Expanded(
-              child: MultiFields(formKey: _formKey, didChange: (foo) => {})),
+              child: DynamicTextFields(
+                  formKey: widget._formKey, name: widget.name)),
           SubmitButton(onPressed: onPressed),
         ],
       ),
