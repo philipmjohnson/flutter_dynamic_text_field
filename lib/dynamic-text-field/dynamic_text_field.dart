@@ -26,8 +26,10 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
           }
 
           void removeFieldValueEntry(int index) {
-            setState(() => fieldValuesList.removeAt(index));
-            setState(() => keyOffset = DateTime.now().millisecondsSinceEpoch);
+            setState(() {
+              fieldValuesList.removeAt(index);
+              keyOffset = DateTime.now().millisecondsSinceEpoch;
+            });
             field.didChange(fieldValuesList);
           }
 
