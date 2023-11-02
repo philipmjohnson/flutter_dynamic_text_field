@@ -7,9 +7,15 @@ This sample app illustrates two Flutter form concepts:
 
 This example includes a validator to check that all fields have values upon pressing the submit button.
 
-Here's an example screenshot showing the display after three items have been entered.
+Here's an example screenshot showing the display after two items have been entered, a third field has been added but left empty, and the submit button has been pushed (triggering a validation error).
 
 <img width="300px" src="README.png">
+
+If that field were to be made valid (by, say, typing "2 eggs"), then upon submission the following will be printed to the console:
+
+```
+flutter: on Submit: [1 cup flour, 4 tbs salt, 2 eggs]
+```
 
 ### Creating a dynamic set of text fields
 
@@ -26,3 +32,13 @@ In the case of this sample app, it involved having the DynamicTextField widget r
 Then, whenever the state of fieldValuesList was changed, the widget invoked field.didChange() with the fieldValuesList. This communicated to the FormBuilder the up-to-date state of the form field.
 
 Finally, when the submit button is pressed, the form is validated.  The sample system attaches a validator to each text field to ensure that no fields are empty. If all the fields are non-empty, then the list of string values are printed. Otherwise, the form will indicate an error under the offending text field.
+
+### keyOffset 
+
+The implementation process required solving a couple of problems in the DynamicTextField widget.
+
+1. If a new key is provided each time the text fields are re-rendered, then the text field loses focus.  This is irritating since the text fields are re-rendered every time a character is typed into them. The recommended way to solve this problem is to avoid generating a new key each time the form is rendered, as discussed in this [StackOverflow Question: TextFormField is losing focus - flutter](https://stackoverflow.com/questions/48845568/textformfield-is-losing-focus-flutter).
+
+2. If you follow the above advice, and provide a "constant" key to prevent a new one from being generated (for example `GlobalObjectKey(index)`), then you encounter a new problem: when you hit the "delete" button, the UI will act as if the last field was deleted, regardless of which delete button you pushed. 
+
+The solution used in this widget is to provide a key based on the current timestamp (called keyOffset) and the index of the text field in the list.  keyOffset is changed only when a field is deleted. This results in the text field keys remaining constant while you type into them (or when you add a new field to the bottom), and new key values are generated when the list decreases (which results in the correct entry being deleted).
