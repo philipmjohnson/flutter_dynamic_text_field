@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 
-class TextFieldButton extends StatelessWidget {
-  const TextFieldButton(
-      {super.key,
-      required this.index,
-      required this.friendsList,
-      required this.onTap,
-      required this.isLast});
+class DynamicTextFieldButton extends StatelessWidget {
+  const DynamicTextFieldButton(
+      {super.key, required this.onTap, required this.isLast});
 
-  final int index;
-  final List<String> friendsList;
   final VoidCallback onTap;
   final bool isLast;
 

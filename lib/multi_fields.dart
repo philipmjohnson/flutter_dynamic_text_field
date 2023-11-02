@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'dynamic_text_field.dart';
-import 'text_field_button.dart';
+import 'dynamic_text_field_button.dart';
 
 class MultiFields extends StatefulWidget {
   const MultiFields({super.key, required this.formKey});
@@ -30,9 +30,7 @@ class _MultiFieldsState extends State<MultiFields> {
             ),
           ),
           const SizedBox(width: 20),
-          TextFieldButton(
-              index: index,
-              friendsList: fieldValues,
+          DynamicTextFieldButton(
               isLast: index == fieldValues.length - 1,
               onTap: () => setState(
                     () => (index == fieldValues.length - 1)
