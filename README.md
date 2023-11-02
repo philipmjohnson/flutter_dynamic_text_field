@@ -27,9 +27,9 @@ This means that the fieldValuesList has a continuously up-to-date representation
 
 A helpful overview of this process is available in [Building a custom field with FormBuilder Flutter package](https://medium.com/@danvickmiller/building-a-custom-flutter-form-builder-field-c67e2b2a27f4).
 
-In the case of this sample app, it involved having the DynamicTextField widget return a FormBuilderField. 
+In the case of this sample app, it involves having the DynamicTextField widget return a FormBuilderField. 
 
-Then, whenever the state of fieldValuesList was changed, the widget invoked field.didChange() with the fieldValuesList. This communicated to the FormBuilder the up-to-date state of the form field.
+Then, whenever the state of fieldValuesList changes, the widget invokes `field.didChange(fieldValuesList)`. This communicates the latest state to the FormBuilder.
 
 Finally, when the submit button is pressed, the form is validated.  The sample system attaches a validator to each text field to ensure that no fields are empty. If all the fields are non-empty, then the list of string values are printed. Otherwise, the form will indicate an error under the offending text field.
 
@@ -41,4 +41,4 @@ The implementation process required solving a couple of problems in the DynamicT
 
 2. If you follow the above advice, and provide a "constant" key to prevent a new one from being generated (for example `GlobalObjectKey(index)`), then you encounter a new problem: when you hit the "delete" button, the UI will act as if the last field was deleted, regardless of which delete button you pushed. 
 
-The solution used in this widget is to provide a key based on the current timestamp (called keyOffset) and the index of the text field in the list.  keyOffset is changed only when a field is deleted. This results in the text field keys remaining constant while you type into them (or when you add a new field to the bottom), and new key values are generated when the list decreases (which results in the correct entry being deleted).
+The solution used in this widget is to provide a key based on the current timestamp (called keyOffset) and the index of the text field in the list.  keyOffset is changed only when a field is deleted. This results in the text field keys remaining constant while you type into them (or when you add a new field to the bottom), while new key values are generated when the list decreases (which results in the correct entry being deleted) from the reduced list of values..
