@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'SubmitButton.dart';
 import 'multi_fields.dart';
+import 'submit_button.dart';
 
 class RecipeForm extends StatefulWidget {
   const RecipeForm({super.key});
