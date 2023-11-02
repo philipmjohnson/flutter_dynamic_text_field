@@ -29,7 +29,7 @@ class _MultiFieldsState extends State<MultiFields> {
   }
 
   void setFieldValueEntry(int index, String value) {
-    setState(() => fieldValues[index] = value);
+    fieldValues[index] = value;
     widget.didChange(fieldValues);
   }
 
