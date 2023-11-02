@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-/// Builds either an Add or Remove button depending on value of isAdd.
+/// Builds the button displayed to the left of each text field.
+/// It is either an Add or Remove button depending on value of isAdd.
 class DynamicTextFieldButton extends StatelessWidget {
   const DynamicTextFieldButton(
       {super.key, required this.onTap, required this.isAdd});

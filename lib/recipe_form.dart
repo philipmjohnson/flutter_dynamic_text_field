@@ -4,6 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'dynamic-text-field/dynamic_text_field.dart';
 
+/// A simple example of using the DynamicTextField widget.
 class RecipeForm extends StatelessWidget {
   const RecipeForm({super.key});
   final String fieldName = 'Recipe Items';
@@ -14,6 +15,7 @@ class RecipeForm extends StatelessWidget {
 
     void onPressed() {
       if (formKey.currentState!.saveAndValidate()) {
+        // ignore: avoid_print
         print('on Submit: ${formKey.currentState!.value[fieldName]}');
       }
     }
@@ -21,12 +23,13 @@ class RecipeForm extends StatelessWidget {
     return FormBuilder(
       key: formKey,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(children: [
-          Expanded(child: DynamicTextField(name: fieldName)),
-          SubmitButton(onPressed: onPressed)
-        ]),
-      ),
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(children: [
+            const SizedBox(height: 10),
+            DynamicTextField(name: fieldName),
+            const SizedBox(height: 10),
+            SubmitButton(onPressed: onPressed),
+          ])),
     );
   }
 }
