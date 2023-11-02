@@ -42,7 +42,7 @@ class _MultiFieldsState extends State<MultiFields> {
         children: [
           Expanded(
             child: DynamicTextField(
-              key: UniqueKey(),
+              key: GlobalObjectKey(index),
               initialValue: fieldValues[index],
               onChanged: (value) => setFieldValueEntry(index, value),
             ),

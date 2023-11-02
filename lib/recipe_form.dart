@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'multi_fields.dart';
+import 'dynamic_text_fields_form2.dart';
 import 'submit_button.dart';
 
 class RecipeForm extends StatefulWidget {
@@ -29,8 +29,7 @@ class _RecipeFormState extends State<RecipeForm> {
       key: _formKey,
       child: Column(
         children: [
-          Expanded(
-              child: MultiFields(formKey: _formKey, didChange: (foo) => {})),
+          Expanded(child: DynamicTextFieldsForm2(formKey: _formKey)),
           SubmitButton(onPressed: onPressed),
         ],
       ),
