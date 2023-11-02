@@ -14,22 +14,25 @@ class DynamicTextField extends StatefulWidget {
 
 class _DynamicTextFieldState extends State<DynamicTextField> {
   final fieldValuesList = [''];
+  int keyOffset = DateTime.now().millisecondsSinceEpoch;
   @override
   Widget build(BuildContext context) {
     return FormBuilderField<List<String>>(
         name: widget.name,
         builder: (FormFieldState field) {
-          void onTap(int index) {
-            setState(
-              () => (index == fieldValuesList.length - 1)
-                  ? fieldValuesList.add('')
-                  : fieldValuesList.removeAt(index),
-            );
+          void addFieldValueEntry() {
+            setState(() => fieldValuesList.add(''));
             field.didChange(fieldValuesList);
           }
 
-          void onChanged(int index, String? fieldEntryValue) {
-            fieldValuesList[index] = fieldEntryValue!;
+          void removeFieldValueEntry(int index) {
+            setState(() => fieldValuesList.removeAt(index));
+            setState(() => keyOffset = DateTime.now().millisecondsSinceEpoch);
+            field.didChange(fieldValuesList);
+          }
+
+          void setFieldValueEntry(int index, String? value) {
+            fieldValuesList[index] = value ?? '';
             field.didChange(fieldValuesList);
           }
 
@@ -47,9 +50,10 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
                   children: [
                     Expanded(
                       child: FormBuilderTextField(
+                        key: GlobalObjectKey(keyOffset + index),
                         name: UniqueKey().toString(),
                         initialValue: fieldValuesList[index],
-                        onChanged: (value) => onChanged(index, value),
+                        onChanged: (value) => setFieldValueEntry(index, value),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ]),
@@ -58,7 +62,9 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
                     const SizedBox(width: 20),
                     DynamicTextFieldButton(
                         isAdd: (index == fieldValuesList.length - 1),
-                        onTap: () => onTap(index)),
+                        onTap: () => (index == fieldValuesList.length - 1)
+                            ? addFieldValueEntry()
+                            : removeFieldValueEntry(index)),
                   ],
                 ),
                 separatorBuilder: (_, __) => const SizedBox(height: 20),
