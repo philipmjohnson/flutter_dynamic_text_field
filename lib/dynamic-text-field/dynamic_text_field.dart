@@ -23,7 +23,8 @@ class DynamicTextField extends StatefulWidget {
 }
 
 class _DynamicTextFieldState extends State<DynamicTextField> {
-  final fieldValuesList = [''];
+  final List<String> fieldValuesList = [''];
+  final List<FocusNode> focusNodesList = [FocusNode()];
   int keyOffset = DateTime.now().millisecondsSinceEpoch;
   @override
   Widget build(BuildContext context) {
@@ -31,13 +32,23 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
         name: widget.name,
         builder: (FormFieldState field) {
           void addFieldValueEntry() {
-            setState(() => fieldValuesList.add(''));
+            setState(() {
+              fieldValuesList.add('');
+              FocusNode focusNode = FocusNode();
+              focusNodesList.add(focusNode);
+              Future.delayed(const Duration(milliseconds: 10), () {
+                FocusScope.of(context).requestFocus(focusNode);
+              });
+            });
             field.didChange(fieldValuesList);
           }
 
           void removeFieldValueEntry(int index) {
             setState(() {
               fieldValuesList.removeAt(index);
+              FocusNode focusNode = focusNodesList[index];
+              focusNodesList.removeAt(index);
+              focusNode.dispose();
               keyOffset = DateTime.now().millisecondsSinceEpoch;
             });
             field.didChange(fieldValuesList);
@@ -66,6 +77,8 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
                       child: FormBuilderTextField(
                         key: GlobalObjectKey(keyOffset + index),
                         name: UniqueKey().toString(),
+                        focusNode: focusNodesList[index],
+                        autofocus: true,
                         initialValue: fieldValuesList[index],
                         onChanged: (value) => setFieldValueEntry(index, value),
                         validator: FormBuilderValidators.compose([

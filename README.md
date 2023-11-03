@@ -49,4 +49,10 @@ This example is constructed with two ListViews. The first ListView wraps the ele
 
 The second ListView is part of the implementation of the Dynamic Form Field. This is so that the *field* can have more text field elements than will fit on the screen at one time, and if that happens, the user can scroll to see all of them. 
 
-This creates a kind of conflict of interest: when the user attempts to scroll, which widget (the field or the form?) has control at what point in time? To get the appropriate behavior, this sample system provides the parameter `physics: const AlwaysScrollableScrollPhysics(),` to the ListView associated with the form, and the parameter `physics: const ClampingScrollPhysics()` to the ListView associated with the field. This results in the desired behavior: once you've scrolled to the end of the field, you can continue to scroll to the end of the form.  
+This creates a kind of conflict of interest: when the user attempts to scroll, which widget (the field or the form?) has control at what point in time? To get the appropriate behavior, this sample system provides the parameter `physics: const AlwaysScrollableScrollPhysics(),` to the ListView associated with the form, and the parameter `physics: const ClampingScrollPhysics()` to the ListView associated with the field. This results in the desired behavior: once you've scrolled to the end of the field, you can continue to scroll to the end of the form. 
+
+### Controlling focus
+
+When the user types the "+" button to create a new text field, it is useful for the focus to shift automatically to the newly created text field so that the user can immediately start typing into the new field. An approach to this behavior is documented in [Changing focus from one text field to the next in Flutter](https://stackoverflow.com/questions/49410975/changing-focus-from-one-text-field-to-the-next-in-flutter), which almost works: the focus is changed, but the field does not accept typed characters immediately. I applied [this workaround](https://github.com/flutter/flutter/issues/95553#issuecomment-1120141268) to get the desired behavior. 
+
+Note that it would be nice to have the tab and shift-tab key presses shift the focus backward and forward, but that is not currently implemented.
