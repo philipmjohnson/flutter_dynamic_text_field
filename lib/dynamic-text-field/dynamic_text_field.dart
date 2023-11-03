@@ -57,6 +57,7 @@ class _DynamicTextFieldState extends State<DynamicTextField> {
               ),
               child: ListView.separated(
                 shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
                 itemCount: fieldValuesList.length,
                 padding: const EdgeInsets.all(20),
                 itemBuilder: (_, index) => Row(

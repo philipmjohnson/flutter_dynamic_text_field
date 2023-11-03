@@ -24,12 +24,14 @@ class RecipeForm extends StatelessWidget {
       key: formKey,
       child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ListView(children: [
-            const SizedBox(height: 10),
-            DynamicTextField(name: fieldName),
-            const SizedBox(height: 10),
-            SubmitButton(onPressed: onPressed),
-          ])),
+          child: ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              children: [
+                const SizedBox(height: 10),
+                DynamicTextField(name: fieldName),
+                const SizedBox(height: 10),
+                SubmitButton(onPressed: onPressed),
+              ])),
     );
   }
 }

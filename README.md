@@ -41,4 +41,12 @@ The implementation process required solving a couple of problems in the DynamicT
 
 2. If you follow the above advice, and provide a "constant" key to prevent a new one from being generated (for example `GlobalObjectKey(index)`), then you encounter a new problem: when you hit the "delete" button, the UI will act as if the last field was deleted, regardless of which delete button you pushed. 
 
-The solution used in this widget is to provide a key based on the current timestamp (called keyOffset) and the index of the text field in the list.  keyOffset is changed only when a field is deleted. This results in the text field keys remaining constant while you type into them (or when you add a new field to the bottom), while new key values are generated when the list decreases (which results in the correct entry being deleted) from the reduced list of values..
+The solution used in this widget is to provide a key based on the current timestamp (called keyOffset) and the index of the text field in the list.  keyOffset is changed only when a field is deleted. This results in the text field keys remaining constant while you type into them (or when you add a new field to the bottom), while new key values are generated when the list decreases (which results in the correct entry being deleted) from the reduced list of values.
+
+### Scroll Physics
+
+This example is constructed with two ListViews. The first ListView wraps the elements of the entire form. This is so that the *form* can have more fields than will fit on the screen at one time, and if that happens, the user can scroll to see all of the elements. 
+
+The ListView is part of the implementation of the Dynamic Form Field. This is so that the *field* can have more text field elements than will fit on the screen at one time, and if that happens, the user can scroll to see all of them. 
+
+This creates a kind of conflict of interest: when the user attempts to scroll, which widget (the field or the form?) has control at what point in time? To get the appropriate behavior, this sample system provides the parameter `physics: const AlwaysScrollableScrollPhysics(),` to the ListView associated with the form, and the parameter `physics: const ClampingScrollPhysics()` to the ListView associated with the field. This results in the desired behavior: once you've scrolled to the end of the field, you can continue to scroll to the end of the form.  
