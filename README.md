@@ -1,9 +1,9 @@
 # flutter_dynamic_text_field
 
-This sample app illustrates two Flutter form concepts:
+This sample app illustrates two useful Flutter form concepts:
 
 1. How to create a dynamic (expandable and contractable) set of text fields within a form.
-2. How to create a custom form field in [Flutter Form Builder](https://pub.dev/packages/flutter_form_builder).
+2. How to provide this dynamic set of text fields as a single, reusable custom form field in [Flutter Form Builder](https://pub.dev/packages/flutter_form_builder).
 
 This example includes a validator to check that all fields have values upon pressing the submit button.
 
@@ -34,6 +34,8 @@ Then, whenever the state of fieldValuesList changes, the widget invokes `field.d
 Finally, when the submit button is pressed, the form is validated.  The sample system attaches a validator to each text field to ensure that no fields are empty. If all the fields are non-empty, then the list of string values are printed. Otherwise, the form will indicate an error under the offending text field.
 
 ## Miscellaneous implementation issues
+
+I encountered a few implementation gotchas while developing this example code. Here is a brief summary.
 
 ### 1. Using keyOffset to control text field rebuilding
 
