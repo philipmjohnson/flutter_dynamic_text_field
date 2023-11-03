@@ -47,6 +47,6 @@ The solution used in this widget is to provide a key based on the current timest
 
 This example is constructed with two ListViews. The first ListView wraps the elements of the entire form. This is so that the *form* can have more fields than will fit on the screen at one time, and if that happens, the user can scroll to see all of the elements. 
 
-The ListView is part of the implementation of the Dynamic Form Field. This is so that the *field* can have more text field elements than will fit on the screen at one time, and if that happens, the user can scroll to see all of them. 
+The second ListView is part of the implementation of the Dynamic Form Field. This is so that the *field* can have more text field elements than will fit on the screen at one time, and if that happens, the user can scroll to see all of them. 
 
 This creates a kind of conflict of interest: when the user attempts to scroll, which widget (the field or the form?) has control at what point in time? To get the appropriate behavior, this sample system provides the parameter `physics: const AlwaysScrollableScrollPhysics(),` to the ListView associated with the form, and the parameter `physics: const ClampingScrollPhysics()` to the ListView associated with the field. This results in the desired behavior: once you've scrolled to the end of the field, you can continue to scroll to the end of the form.  
