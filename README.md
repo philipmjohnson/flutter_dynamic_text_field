@@ -17,13 +17,13 @@ If that field were to be made valid (by, say, typing "2 eggs"), then upon submis
 flutter: on Submit: [1 cup flour, 4 tbs salt, 2 eggs]
 ```
 
-### Creating a dynamic set of text fields
+## How to create a dynamic set of text fields
 
 This is accomplished via the Stateful widget called DynamicTextField.  It maintains a state variable called fieldValuesList, which is a list of strings. Each time a character is entered into a field, or the button is pressed to add or subtract a text field, this state variable is updated.
 
 This means that the fieldValuesList has a continuously up-to-date representation of the values entered into the set of text fields, as well as the number of text fields displayed in the form. 
 
-### Creating a custom Form Builder field
+## How to create a custom Form Builder field
 
 A helpful overview of this process is available in [Building a custom field with FormBuilder Flutter package](https://medium.com/@danvickmiller/building-a-custom-flutter-form-builder-field-c67e2b2a27f4).
 
@@ -33,7 +33,9 @@ Then, whenever the state of fieldValuesList changes, the widget invokes `field.d
 
 Finally, when the submit button is pressed, the form is validated.  The sample system attaches a validator to each text field to ensure that no fields are empty. If all the fields are non-empty, then the list of string values are printed. Otherwise, the form will indicate an error under the offending text field.
 
-### keyOffset 
+## Miscellaneous implementation issues
+
+### 1. Using keyOffset to control text field rebuilding
 
 The implementation process required solving a couple of problems in the DynamicTextField widget.
 
@@ -43,7 +45,7 @@ The implementation process required solving a couple of problems in the DynamicT
 
 The solution used in this widget is to provide a key based on the current timestamp (called keyOffset) and the index of the text field in the list.  keyOffset is changed only when a field is deleted. This results in the text field keys remaining constant while you type into them (or when you add a new field to the bottom), while new key values are generated when the list decreases (which results in the correct entry being deleted) from the reduced list of values.
 
-### Scroll Physics
+### 2. Using scroll physics to enable correct scrolling with nested ListViews
 
 This example is constructed with two ListViews. The first ListView wraps the elements of the entire form. This is so that the *form* can have more fields than will fit on the screen at one time, and if that happens, the user can scroll to see all of the elements. 
 
@@ -51,7 +53,7 @@ The second ListView is part of the implementation of the Dynamic Form Field. Thi
 
 This creates a kind of conflict of interest: when the user attempts to scroll, which widget (the field or the form?) has control at what point in time? To get the appropriate behavior, this sample system provides the parameter `physics: const AlwaysScrollableScrollPhysics(),` to the ListView associated with the form, and the parameter `physics: const ClampingScrollPhysics()` to the ListView associated with the field. This results in the desired behavior: once you've scrolled to the end of the field, you can continue to scroll to the end of the form. 
 
-### Controlling focus
+### 3. Set the focus when a new text field is created
 
 When the user types the "+" button to create a new text field, it is useful for the focus to shift automatically to the newly created text field so that the user can immediately start typing into the new field. An approach to this behavior is documented in [Changing focus from one text field to the next in Flutter](https://stackoverflow.com/questions/49410975/changing-focus-from-one-text-field-to-the-next-in-flutter), which almost works: the focus is changed, but the field does not accept typed characters immediately. I applied [this workaround](https://github.com/flutter/flutter/issues/95553#issuecomment-1120141268) to get the desired behavior. 
 
